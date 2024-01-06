@@ -22,6 +22,8 @@ const uploadFile = async (req,res) => {
         let ppt = "application/vnd.ms-powerpoint"
         let doc = "application/vnd.ms-document"
         let pptx =  "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        let png = "image/png"
+        let jpeg = "image/jpeg"
 
         // if file is not linked
         if(!req.files || Object.keys(req.files).length === 0)
@@ -37,7 +39,7 @@ const uploadFile = async (req,res) => {
         }
 
         // validate file types
-        if(myFile.mimetype !== pdf) {
+        if(myFile.mimetype !== pdf && myFile.mimetype !== png && myFile.mimetype !== jpeg) {
             deleteTemp(myFile.tempFilePath)
             return res.status(StatusCodes.CONFLICT).json({ msg: `File format not supported, Allow only (ppt,pptx,pdf,doc,docx)`})
         }
